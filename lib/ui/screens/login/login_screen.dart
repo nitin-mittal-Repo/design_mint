@@ -114,16 +114,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ],
             ),
           ),
-
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: AppComponent.bgContainer(
-                child: HugeIcon(icon: HugeIconsStrokeRounded.google, color: AppColors.white),
-                radius: 50,
-              ),
-            ),
-          ),
+          // new code up now, for the testing purpose..
 
           Center(
             child: Padding(
