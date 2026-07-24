@@ -115,6 +115,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
           ),
 
+          Padding(
+            padding: const EdgeInsets.fromLTRB(40, 30, 40, 0),
+            child: Row(
+              children: [
+                Flexible(child: Divider(color: Colors.grey)),
+                AppTextView(heading: "or", fontSize: 14, paddingH: 20, fontWeight: FontWeight.w300),
+                Flexible(child: Divider(color: Colors.grey)),
+              ],
+            ),
+          ),
+
           Center(
             child: Padding(
               padding: const EdgeInsets.only(top: 15.0),
