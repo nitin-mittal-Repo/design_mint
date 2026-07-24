@@ -6,9 +6,11 @@ import 'package:design_mint/ui/widgets/app_textfield.dart';
 import 'package:design_mint/ui/widgets/app_textview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:hugeicons/styles/stroke_rounded.dart';
+import '../../utils/app_assets.dart';
 import '../../utils/app_components.dart';
 import '../../utils/app_theme.dart';
 
@@ -104,7 +106,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           ),
 
           Padding(
-            padding: const EdgeInsets.fromLTRB(40, 30, 40, 0),
+            padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
             child: Row(
               children: [
                 Flexible(child: Divider(color: Colors.grey)),
@@ -114,14 +116,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
             ),
           ),
 
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: AppComponent.bgContainer(
-                child: HugeIcon(icon: HugeIconsStrokeRounded.google, color: AppColors.white),
-                radius: 50,
-              ),
-            ),
+          20.verticalSpace,
+          AppButton(
+            onPressed: () {
+              FocusManager.instance.primaryFocus!.unfocus();
+              context.pushNamed(registerScreen);
+            },
+            title: "Continue with google",
+            width: MediaQuery.of(context).size.width * .9,
+            leftIcon: AppAssets.iconGoogle,
+            paddingH: 15,
           ),
         ],
       ),
