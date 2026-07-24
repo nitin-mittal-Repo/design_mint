@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/init/app_provider.dart';
 import '../utils/app_theme.dart';
@@ -48,14 +49,14 @@ class AppTextView extends ConsumerWidget {
         ref.tr(heading),
         textAlign: textAlign,
         overflow: textOverflow,
-        style: TextStyle(
+        style: GoogleFonts.lilitaOne(
+          textStyle: Theme.of(context).textTheme.displayLarge,
+          fontSize: fontSize,
           fontStyle: fontStyle,
           decoration: textDecoration,
-          fontFamily: fontFamily,
           color: textColor,
           fontWeight:fontWeight ?? FontWeight.w400,
           height: lineHeight,
-          fontSize: fontSize,
           letterSpacing: letterSpacing,
         ),
       ),
