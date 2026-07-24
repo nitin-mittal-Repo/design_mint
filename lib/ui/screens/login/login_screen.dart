@@ -109,7 +109,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             child: Row(
               children: [
                 Flexible(child: Divider(color: Colors.grey)),
-                AppTextView(heading: "or", fontSize: 14, paddingH: 20, fontWeight: FontWeight.w300),
+                AppTextView(heading: "add new functionality", fontSize: 14, paddingH: 20, fontWeight: FontWeight.w300),
                 Flexible(child: Divider(color: Colors.grey)),
               ],
             ),
