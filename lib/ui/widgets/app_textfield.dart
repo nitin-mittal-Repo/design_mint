@@ -1,7 +1,11 @@
 
+import 'package:design_mint/ui/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:hugeicons/styles/stroke_rounded.dart';
 import '../../core/init/app_provider.dart';
 import '../utils/app_theme.dart';
 
@@ -127,7 +131,15 @@ class AppTextFieldState extends ConsumerState<AppTextField> {
           widget.onChanged?.call(value);
         },
         keyboardType: widget.keyboardType,
-        validator: widget.validator,
+        validator: (value) {
+          final result = widget.validator?.call(value);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() => errorText = result);
+            }
+          });
+          return result;
+        },
         readOnly: widget.readOnly,
         style: widget.textInputStyle,
         inputFormatters: widget.inputFormatters ?? [],
@@ -141,11 +153,14 @@ class AppTextFieldState extends ConsumerState<AppTextField> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               if (widget.suffixIcon != null) widget.suffixIcon!,
+
                if (errorText != null && errorText!.isNotEmpty)
                 Tooltip(
                   triggerMode: TooltipTriggerMode.tap,
                   message: ref.tr(errorText ?? ''),
-                  child: Icon(Icons.error_outlined, color: Colors.red, size: 20),
+                  child: Padding(
+                      padding: EdgeInsets.fromLTRB(0,0,10,0),
+                      child: SvgPicture.asset(AppAssets.iconInfo, color: AppTheme.red)),
                 ),
             ],
           ),

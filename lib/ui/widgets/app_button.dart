@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 import '../../core/init/app_provider.dart';
 import '../utils/app_theme.dart';
@@ -18,6 +21,9 @@ class AppButton extends ConsumerWidget {
   final double paddingH;
   final Color? buttonColor;
   final Color? textColor;
+  final AlignmentDirectional? textAlignment;
+  final String? leftIcon;
+  final String? rightIcon;
 
   const AppButton({
     super.key,
@@ -33,12 +39,15 @@ class AppButton extends ConsumerWidget {
     this.paddingH = 0,
     this.buttonColor,
     this.textColor,
+    this.textAlignment = AlignmentDirectional.center,
+    this.leftIcon,
+    this.rightIcon,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 100),
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.symmetric(vertical: paddingV, horizontal: paddingH),
       width: isLoading ? 46 : width,
@@ -49,10 +58,11 @@ class AppButton extends ConsumerWidget {
       ),
       child: ElevatedButton(
         style: ButtonStyle(
+          alignment: textAlignment,
           minimumSize: WidgetStateProperty.all(Size.zero),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: WidgetStateProperty.all(0),
-          padding: WidgetStateProperty.all(EdgeInsets.zero),
+          padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 10.sp)),
           shadowColor: WidgetStateProperty.all(Colors.transparent),
           overlayColor: WidgetStateProperty.all(Colors.transparent),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
@@ -73,12 +83,25 @@ class AppButton extends ConsumerWidget {
         onPressed: /*isLoading ? null :*/ onPressed,
         child: isLoading
             ? SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-            : AppTextView(
-          heading: ref.tr(title),
-          fontSize: fontSize ?? 16,
-          textColor: filledColor ? (textColor ?? AppTheme.white) : (textColor ?? AppTheme.lightGray),
-          fontWeight: FontWeight.w800,
-        ),
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 10.sp,
+                children: [
+                  if (leftIcon != null) 
+                    Flexible(child: SvgPicture.asset(leftIcon!, color: AppTheme.primaryPeach)),
+
+                  AppTextView(
+                    heading: ref.tr(title),
+                    fontSize: fontSize ?? 16,
+                    textColor: filledColor ? (textColor ?? AppTheme.white) : (textColor ?? AppTheme.lightGray),
+                    fontWeight: FontWeight.w800,
+                  ),
+
+                  if (rightIcon != null)
+                    Flexible(child: SvgPicture.asset(rightIcon!, color: AppTheme.primaryPeach)),
+                ],
+              ),
       ),
     );
   }
