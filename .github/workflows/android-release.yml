@@ -2,9 +2,9 @@ name: Android Release
 
 on:
   push:
-    branches: [ "master", "testing_purpose", "ui-module" ]
+    branches: [ "master"]
   pull_request:
-    branches: [ "master", "testing_purpose", "ui-module" ]
+    branches: [ "master"]
   workflow_dispatch:
 
 jobs:
